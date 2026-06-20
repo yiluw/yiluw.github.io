@@ -61,6 +61,9 @@ a { color: inherit; text-decoration: none; }
   border-radius: 2px;
 }
 
+/* anchor targets land with a little breathing room */
+section[id] { scroll-margin-top: 28px; }
+
 /* ============================================================
    TOP BAR
    ============================================================ */
@@ -222,11 +225,17 @@ a { color: inherit; text-decoration: none; }
 .content p { margin: 0 0 16px; }
 .content p:last-child { margin-bottom: 0; }
 
-.content .il {        /* inline link inside prose */
+/* inline link inside prose (use class "il" or "cv-link") */
+.content .il,
+.cv-link {
+  color: var(--accent);
+  font-weight: 500;
   border-bottom: 1px solid var(--line);
+  padding-bottom: 1px;
   transition: border-color .18s ease, color .18s ease;
 }
-.content .il:hover { color: var(--accent); border-color: var(--accent); }
+.content .il:hover,
+.cv-link:hover { color: var(--accent-2); border-color: var(--accent); }
 
 /* ---- Publications ---- */
 .pub {
@@ -278,6 +287,59 @@ a { color: inherit; text-decoration: none; }
 }
 .pub-links a:hover { color: var(--accent); border-color: var(--accent); }
 
+/* ---- Talks & Teaching (now shares the publication visual system) ---- */
+.talk-group { margin-top: 44px; }
+.talk-group:first-of-type { margin-top: 8px; }
+
+.subheading {
+  font-family: var(--sans);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  color: var(--accent);
+  /* bleed left 18px so the rule lines up with the entries below */
+  margin: 0 0 0 -18px;
+  padding: 0 0 11px 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.talk {
+  padding: 16px 0 16px 18px;
+  margin-left: -18px;
+  border-bottom: 1px solid var(--line);
+  border-left: 2px solid transparent;
+  transition: border-left-color .2s ease, padding-left .2s ease, background .2s ease;
+}
+.talk:hover {
+  border-left-color: var(--accent);
+  padding-left: 24px;
+  background: linear-gradient(90deg, var(--tint), transparent 60%);
+}
+
+.talk-title {
+  font-family: var(--serif);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 1.32;
+  margin: 0 0 6px;
+}
+
+.talk-meta {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  margin: 0;
+}
+.talk-meta a {
+  color: var(--muted);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1px;
+  transition: color .18s ease, border-color .18s ease;
+}
+.talk-meta a:hover { color: var(--accent); border-color: var(--accent); }
+
 /* ---- Footer ---- */
 .foot {
   max-width: var(--maxw);
@@ -301,7 +363,7 @@ a { color: inherit; text-decoration: none; }
   }
   .rail { position: static; }
   .topbar { padding: 22px 26px 0; }
-  .topbar nav { gap: 14px; }
+  .topbar nav { gap: 14px; flex-wrap: wrap; justify-content: flex-end; }
   .foot { padding: 0 26px 44px; }
   .content { max-width: none; }
 }
@@ -317,49 +379,6 @@ a { color: inherit; text-decoration: none; }
   .d4 { animation-delay: .38s; }
   @keyframes rise { to { opacity: 1; transform: none; } }
 }
-
-.cv-link {
-  color: #496b62;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-  font-weight: 600;
-}
-
-.cv-link:hover {
-  color: #243d37;
-}
-
-.block .subheading {
-  margin: 20px 0 10px;
-  font-size: 17px;
-  font-weight: 600;
-  line-height: 1.3;
-  color: #26312e;
-}
-
-.talk-item {
-  margin: 18px 0;
-}
-
-.talk-title {
-  margin: 0 0 4px;
-  font-size: 1rem;
-  font-weight: 500;
-  line-height: 1.5;
-}
-
-.talk-meta {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #777;
-}
-
-.talk-meta a {
-  color: #496b62;
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
 </style>
 </head>
 
@@ -371,11 +390,10 @@ a { color: inherit; text-decoration: none; }
   <header class="topbar">
     <a class="wordmark" href="#">Yilu Wang</a>
     <nav>
-      <!-- EDIT: quick links -->
-      <!-- <a href="#publications">Publications</a>
+      <a href="#about">About</a>
+      <a href="#talks">Talks</a>
+      <a href="#writing">Writing</a>
       <a href="YiluWang-CV.pdf">CV</a>
-      <a href="https://scholar.google.com/" target="_blank" rel="noopener">Scholar</a> -->
-      <>
     </nav>
   </header>
 
@@ -406,7 +424,6 @@ a { color: inherit; text-decoration: none; }
         <!-- <li><a href="https://scholar.google.com/" target="_blank" rel="noopener">Google Scholar</a></li> -->
         <!-- <li><a href="https://github.com/" target="_blank" rel="noopener">GitHub</a></li> -->
         <!-- <li><a href="https://x.com/" target="_blank" rel="noopener">Twitter / X</a></li> -->
-         
       </ul>
 
       <a class="cv-btn" href="YiluWang-CV.pdf">Download CV</a>
@@ -441,12 +458,9 @@ a { color: inherit; text-decoration: none; }
 
       <!-- EDUCATION & EXPERIENCE -->
       <section class="block reveal d2" id="education">
-        <p class="eyebrow">Education & Experience</p>
+        <p class="eyebrow">Education &amp; Experience</p>
         <p>
-          See my
-          <a class="cv-link" href="YiluWang-CV.pdf" target="_blank" rel="noopener">
-            CV
-          </a>
+          See my <a class="cv-link" href="YiluWang-CV.pdf" target="_blank" rel="noopener">CV</a>.
         </p>
       </section>
 
@@ -467,81 +481,61 @@ a { color: inherit; text-decoration: none; }
         </article> -->
 
         <p>
-          Also see my
-          <a class="cv-link" href="YiluWang-CV.pdf" target="_blank" rel="noopener">CV</a>
-          please
+          Also see my <a class="cv-link" href="YiluWang-CV.pdf" target="_blank" rel="noopener">CV</a>, please.
         </p>
       </section>
 
       <!-- TALKS & TEACHING -->
       <section class="block reveal d2" id="talks">
-        <p class="eyebrow">Talks & Teaching</p>
+        <p class="eyebrow">Talks &amp; Teaching</p>
 
-        <h3 class="subheading">Workshops</h3>
+        <div class="talk-group">
+          <h3 class="subheading">Workshops</h3>
 
-        <div class="talk-item">
-          <p class="talk-title">
-            On scientific writing and presentation (in Chinese)
-          </p>
-          <p class="talk-meta">
-            May 2026 ·
-            <a href="slides/260516_星火终审分享_yilu.pdf" target="_blank" rel="noopener">
-              Slides
-            </a>
-          </p>
+          <div class="talk">
+            <p class="talk-title">On scientific writing and presentation (in Chinese)</p>
+            <p class="talk-meta">
+              May 2026 ·
+              <a href="slides/260516_星火终审分享_yilu.pdf" target="_blank" rel="noopener">Slides</a>
+            </p>
+          </div>
+
+          <div class="talk">
+            <p class="talk-title">Introduction to Zotero (in English and Chinese)</p>
+            <p class="talk-meta">
+              May 2026 ·
+              <a href="slides/Introduction to Zotero (2).docx" target="_blank" rel="noopener">Download tutorial</a>
+            </p>
+          </div>
         </div>
 
-        <div class="talk-item">
-          <p class="talk-title">
-            Introduction to Zotero (in English and Chinese)
-          </p>
-          <p class="talk-meta">
-            May 2026 ·
-            <a href="slides/Introduction to Zotero (2).docx" target="_blank" rel="noopener">
-              Download tutorial
-            </a>
-          </p>
+        <div class="talk-group">
+          <h3 class="subheading">Journal Clubs</h3>
+
+          <div class="talk">
+            <p class="talk-title">"Tumor-suppressor genes that escape from X-inactivation contribute to cancer sex bias"</p>
+            <p class="talk-meta">
+              Jun 2026 ·
+              <a href="slides/jc_hp-f11_yilu (1).pdf" target="_blank" rel="noopener">Slides</a>
+            </p>
+          </div>
+
+          <div class="talk">
+            <p class="talk-title">"Epigenetic regulation during cancer transitions across 11 tumour types"</p>
+            <p class="talk-meta">
+              Mar 2026 ·
+              <a href="slides/jc_ding.pdf" target="_blank" rel="noopener">Slides</a>
+            </p>
+          </div>
+
+          <div class="talk">
+            <p class="talk-title">"Perturbation-response genes reveal signaling footprints in cancer gene expression"</p>
+            <p class="talk-meta">
+              Dec 2025 ·
+              <a href="slides/journal club_PROGENY.pdf" target="_blank" rel="noopener">Slides</a>
+            </p>
+          </div>
         </div>
-
-        <h3 class="subheading">Journal Clubs</h3>
-
-        <div class="talk-item">
-          <p class="talk-title">
-            "Tumor-suppressor genes that escape from X-inactivation contribute to cancer sex bias"
-          </p>
-          <p class="talk-meta">
-            Jun 2026 ·
-            <a href="slides/jc_hp-f11_yilu (1).pdf" target="_blank" rel="noopener">
-              Slides
-            </a>
-          </p>
-        </div>
-
-        <div class="talk-item">
-          <p class="talk-title">
-            "Epigenetic regulation during cancer transitions across 11 tumour types"
-          </p>
-          <p class="talk-meta">
-            Mar 2026 ·
-            <a href="slides/jc_ding.pdf" target="_blank" rel="noopener">
-              Slides
-            </a>
-          </p>
-        </div>
-
-        <div class="talk-item">
-          <p class="talk-title">
-            "Perturbation-response genes reveal signaling footprints in cancer gene expression"
-          </p>
-          <p class="talk-meta">
-            Dec 2025 ·
-            <a href="slides/journal club_PROGENY.pdf" target="_blank" rel="noopener">
-              Slides
-            </a>
-          </p>
-        </div>
-
-        </p>
       </section>
 
       <!-- WRITING -->
